@@ -36,12 +36,21 @@ class Contacts extends Controller
 	*/
     public function add(Request $request){
 
+        $rules=array(
+            'onwer_id' => 'required',
+            'name' => 'required',
+            'phone' => 'required'
+        );
+
+        $validatedData = $request->validate($rules);
+
         $this->people->name = $request->name;
         $this->people->phone = $request->phone;
         $this->people->owner_id = $request->owner_id;
         $this->people->save();
         $this->people->id;
-        echo json_encode(array("people_id" =>  $this->people->id));
+
+        return response()->json('sucess'); 
     }
 
 
@@ -54,14 +63,21 @@ class Contacts extends Controller
 	*/
     public function update(Request $request){
 
-        $people_id = $request->id;
-        $people = array(
-                            "name"     => $request->name,
-                            "phone"    => $request->phone,
-                            "owner_id"    => $request->owner_id
-                        );      
-        
-        echo json_encode($people);                              
+        $rules=array(
+            'onwer_id' => 'required',
+            'name' => 'required',
+            'phone' => 'required'
+        );
+
+        $validatedData = $request->validate($rules);
+
+        $this->people = People::find($request->people_id);
+        $this->people->name = $request->name;
+        $this->people->phone = $request->phone;
+        $this->people->owner_id = $request->owner_id;
+        $this->people->update();
+
+        return response()->json('sucess');                             
     }
 
     /**
@@ -73,8 +89,16 @@ class Contacts extends Controller
 	*/
     public function remove(Request $request){
 
-        $people_id = $request->id;
-        echo json_encode(array($people_id));                                      
+        $rules=array(
+            'people_id' => 'required'
+        );
+
+        $validatedData = $request->validate($rules);
+
+
+
+        $person = People::where('id',$request->people_id)->delete();
+        return response()->json('sucess');                                         
     }
 
     /**
@@ -86,8 +110,16 @@ class Contacts extends Controller
 	*/
     public function list(Request $request){
 
-        $owner_id = $request->owner_id;
-        echo json_encode(array());                                 
+        $rules=array(
+            'owner_id' => 'required'
+        );
+
+        $validatedData = $request->validate($rules);
+
+
+
+        $person = People::where("owner_id","=",$request->owner_id);
+        return response()->json('sucess');                                     
     }
 
 }
