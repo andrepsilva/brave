@@ -39,12 +39,10 @@ class BalancedBrackets extends Controller
 		$valid = false;
 		$comment = "";
 
-		if($values && $this->checkString($values)){
-			
+		if($values && $this->checkString($values)){	
 			if($this->validateValues($values, $inputString)){
 				$valid = true;
 			}	
-
 		}else{
 			$comment = "string is not valid";
 		}
@@ -54,9 +52,15 @@ class BalancedBrackets extends Controller
 		}else{
 			echo json_encode(array("string" => $inputString, "status" => "not valid", "comment" => $comment));
 		}
-		
 	}
 
+	/**
+	* Order function
+	*
+    * This function receive String
+	* This function returns integer	
+	* @return integer
+	*/
 	public function order($param)
 	{	
 
@@ -70,6 +74,13 @@ class BalancedBrackets extends Controller
 		}
 	}
 
+	/**
+	* Validate Values function
+	*
+    * This function receive array, string
+	* This function returns boolean	
+	* @return boolean
+	*/
 	public function validateValues($values, $inputString){
 
 		$orderOld = "";
@@ -78,11 +89,8 @@ class BalancedBrackets extends Controller
 				
 			$first = $inputString[0];
 			$last = $inputString[strlen($inputString) - 1];
-
-
 			$orderFirst = $this->order($first.$last);
 
-			
 			if(!$orderFirst){		
 				return false;
 				exit();
@@ -96,38 +104,47 @@ class BalancedBrackets extends Controller
 				return false;
 				exit();
 			}
+
 			$inputString = substr($inputString,1, -1);				
 		}
 
 		return true;
 	}
 
+	/**
+	* Check string function
+	*
+    * This function receive array
+	* This function returns boolean, array	
+	* @return boolean, array
+	*/
 	public function checkString($values = array()){
 
 		$check = array('(',')','{','}','[',']');
 
 		foreach($values as $key => $value){
-			if(!in_array($value, $check)){
-				
+			if(!in_array($value, $check)){		
 				return false;				
 			}
 		}
-
 		return $values;
 	}
 
+	/**
+	* Check post function
+	*
+    * This function receive array
+	* This function returns boolean	
+	* @return boolean
+	*/
 	public function checkPost($string = null){
 
 		$values = mb_str_split($string);
 		
 		if( (count($values) % 2 == 0)){
-
 			return $values;
-
 		}else{
 			return false;
 		}
-
 	}
-	
 }

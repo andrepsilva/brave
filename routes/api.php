@@ -19,11 +19,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 */
 
-use App\Http\Controllers\BalancedBrackets;
+use App\Http\Controllers\Contacts;
 
 
 Route::group(['prefix' => 'v1'], function()  
 {  
+    
     Route::post('/balanced-brackets', [BalancedBrackets::class, 'index']);
+
+});  
+
+
+Route::group(['prefix' => 'contacts'], function()  
+{  
+
+    Route::post('/add', [Contacts::class, 'add']);
+    Route::post('/update', [Contacts::class, 'update']);
+    Route::post('/remove', [Contacts::class, 'remove']);
+    Route::post('/list', [Contacts::class, 'list']);
 
 });  
