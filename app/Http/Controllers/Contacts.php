@@ -109,17 +109,8 @@ class Contacts extends Controller
 	* @return array
 	*/
     public function list(Request $request){
-
-        $rules=array(
-            'owner_id' => 'required'
-        );
-
-        $validatedData = $request->validate($rules);
-
-
-
-        $person = People::where("owner_id","=",$request->owner_id);
-        return response()->json('sucess');                                     
+        $person = People::all();
+        return response()->json($person);                                     
     }
 
 }

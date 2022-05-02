@@ -25,7 +25,7 @@ use App\Http\Controllers\Contacts;
 Route::group(['prefix' => 'v1'], function()  
 {  
     
-    Route::post('/balanced-brackets', [BalancedBrackets::class, 'index']);
+    Route::get('/balanced-brackets', [BalancedBrackets::class, 'index']);
 
 });  
 
