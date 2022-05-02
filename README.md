@@ -1,7 +1,7 @@
 # brave
 Brave Teste
 
-Uma api tratando todo o teste separando por controllers 
+Uma api tratando todo o teste separando por rotas 
 
 Etapa um, validação dos colchetes.
 localhost/api/v1/balanced-brackets
